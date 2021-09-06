@@ -11,19 +11,32 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class DatabaseConnection
+import baseClass.BaseClass;
+
+public class DatabaseConnection extends	BaseClass
 {
 	public ResultSet databaseConnection() throws SQLException
 	{
 		java.sql.Connection conn = null;
 		ResultSet result = null;
-		Utility ul = new Utility();
-		String firmname, TaxSoft, clientNumber ;
+		Utility ul = new Utility();		
+		String firmname, TaxSoft, clientNumber, url = null, environment ;
+        environment = prop.getProperty("EnvironmentName");
 
-		try
-		{
-			String url = "jdbc:sqlserver://w2-stg-db01.ab3169001287.database.windows.net:1433;"
-					+ "databaseName=SPSTAGE2007;";
+ 
+
+        try
+        {
+            if (environment.equalsIgnoreCase("Stage"))
+            {
+                url = prop.getProperty("StageConnectionString");                
+            }
+            else if(environment.equalsIgnoreCase("Development"))
+            {
+                url = prop.getProperty("DEVConnectionString");
+            }
+            else            
+                url = prop.getProperty("QAConnectionString");            	
 			String username = "stg-app-db";
 			String password = "9vgviUdre4ptS8P!";
 			List<JSONObject> jcred = ul.GetJsonData(

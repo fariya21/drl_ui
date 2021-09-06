@@ -114,7 +114,7 @@ driver =new FirefoxDriver();
 
 	public static void closebrowser()
 	{
-		driver.close();
+		driver.quit();
 	}
 
 }
