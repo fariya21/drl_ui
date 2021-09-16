@@ -1,5 +1,4 @@
 package stepdefinition;
-import baseClass.BaseClass;
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
@@ -33,7 +32,7 @@ public class AddClientPopUp extends BaseClass{
     	tc.OfflineRadioButtonClick();
     }
   @And("Enter Client Detail")
-  public void AddClientInformation()throws IOException, ParseException,InterruptedException
+  public void AddClientInformation()throws Throwable
   {
 	  tc= new TaxCaddyPage();
 	  tc.AddDetailClient();
@@ -42,6 +41,6 @@ public class AddClientPopUp extends BaseClass{
   public void VerifyClientAdded() 
   {
 	  tc= new TaxCaddyPage();
-	  tc.VerifyClient();
+	  tc.VerifyClient();	  
   }
 }

@@ -1,16 +1,24 @@
 package stepdefinition;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
 import PageClass.TaxCaddyPage;
 import baseClass.BaseClass;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import utilities.Utility;
 
 public class TaxCaddy extends BaseClass
 {
 	TaxCaddyPage tc;
 	
+	Utility ul = new  Utility();
 	@Given ("^User clicking on Administrative button from TaxCaddy page$")
 	public void clickon_Admin()
 	{
@@ -26,9 +34,10 @@ public class TaxCaddy extends BaseClass
 	}
 	
 	@When ("^Clicking on Add Client button$")
-	public void addonclient()
+	public void addonclient() throws ParseException, IOException,Throwable
 	{
 		tc = new TaxCaddyPage();
+		//List<JSONObject> jcred = ul.GetJsonData(System.getProperty("user.dir") + "/src/main/java/TestData/ClientDetails.json", "ClientDetails");
 		tc.clickon_AddClientBtn();
 	}
 	

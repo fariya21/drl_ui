@@ -17,10 +17,10 @@ public class DRL_ReqStatus extends BaseClass
 	TaxCaddyPage tc;
 	
 	@Given ("^Enter Client ID in searchbox$")
-	public void enter_clientId() throws IOException, ParseException
+	public void enter_clientId() throws Exception
 	{
 		tc = new TaxCaddyPage();
-		tc.enter_Text();
+		tc.enter_Text(TaxCaddyPage.EmailID);
 	}
 
 	@And ("^Select record for DRL request$")
@@ -42,6 +42,7 @@ public class DRL_ReqStatus extends BaseClass
 	{
 		tc = new TaxCaddyPage();
 		tc.verify_DRLStatus();
+		BaseClass.closebrowser();
 	}
 	
 }

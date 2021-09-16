@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.json.simple.JSONArray;
@@ -13,8 +14,11 @@ import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.SendKeysAction;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,7 +35,7 @@ public class TaxCaddyPage extends BaseClass {
 	@FindBy(id = "admin-tab")
 	WebElement AdminTab;
 
-	@FindBy(css = "[title='Add a client']")
+	@FindBy(css = "button[title='Add a client']")
 	WebElement Add_ClientBtn;
 
 	@FindBy(css = "[aria-label='close']")
@@ -104,9 +108,10 @@ public class TaxCaddyPage extends BaseClass {
 	JavascriptExecutor executor = (JavascriptExecutor) driver;
 	Utility ul = new Utility();
 
-	String  EmailID, First, Last, Loc, Own, TaxSoft, TaxAccountNumber, ClientID, ver;
-	public static int index;
-
+	public static String  EmailID, First, Last, Loc, Own, TaxSoft, TaxAccountNumber, ClientID, ver;
+	public static int index,Counter=0;
+	List<JSONObject> jcred;
+	Boolean flagAdd= true;
 	public TaxCaddyPage()
 	{
 		PageFactory.initElements(driver, this);
@@ -122,19 +127,23 @@ public class TaxCaddyPage extends BaseClass {
 	public void verify_TCAdmin_Title() throws InterruptedException
 	{
 		String ExpectedTitle = "Administrative - TaxCaddy CPA";
-		Thread.sleep(10000);
+		Thread.sleep(12000);
 		String ActualTitle = driver.getTitle();
 		System.out.print(ActualTitle);
 		Assert.assertEquals(ExpectedTitle, ActualTitle);
 	}
 
-	public void clickon_AddClientBtn()
+	public void clickon_AddClientBtn() throws Exception, IOException
 	{
+		
 		if (PopUp_CloseBtn.isEnabled())
 			PopUp_CloseBtn.click();
-		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);
-		wait.until(ExpectedConditions.elementToBeClickable(Add_ClientBtn));
-		Add_ClientBtn.click();
+		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);		
+		wait.until(ExpectedConditions.elementToBeClickable(Add_ClientBtn));        
+    	executor.executeScript("arguments[0].click();", Add_ClientBtn);
+		//Add_ClientBtn.click();
+		//flagAdd =false;
+		
 	}
 
 	public void VerifyAddClient()
@@ -151,12 +160,13 @@ public class TaxCaddyPage extends BaseClass {
 	
 	}
 
-	public void AddDetailClient() throws IOException, InterruptedException, ParseException
+	public void AddDetailClient() throws Throwable
 	{
-		List<JSONObject> jcred = ul.GetJsonData(System.getProperty("user.dir") + "/src/main/java/TestData/clientDetails.json", "ClientDetails");
-		
-		for (JSONObject jo : jcred)
+		jcred = ul.GetJsonData(System.getProperty("user.dir") + "/src/main/java/TestData/ClientDetails.json", "ClientDetails");	
+		JSONObject jo ;
+		for (int i=0;i<=jcred.size()-1 ;i++)//JSONObject//
 		{
+		    jo = jcred.get(i);
 			First = (String) jo.get("FirstName");
 			Last = (String) jo.get("LastName");
 			EmailID = (String) jo.get("Email");
@@ -177,25 +187,45 @@ public class TaxCaddyPage extends BaseClass {
 			ul.select_required_from_auto_suggestion("//div[5]/div/ul", Own);
 			
 			//ul.click_on_auto_suggesstion_text_box(taxSoftware);
-			taxSoftware.click();
-			Thread.sleep(1000);
+			Actions builder = new Actions(driver);
+	        builder.moveToElement( taxSoftware ).click( taxSoftware );
+	        builder.perform();		
+	    	//executor.executeScript("arguments[0].click();", taxSoftware);
+			//taxSoftware.click();
+			Thread.sleep(3000);
 			TaxSoft=ul.EnumTax(index);
 			getTaxName(TaxSoft);
 			// dd.enter_just_Str("CCH", taxAccountNum);
 			//ul.click_on_auto_suggesstion_text_box(taxAccountNum);
 			taxClientId.click();
-			taxClientId.sendKeys(ClientID);
-			taxSoftwareVersion.sendKeys(ver);
+			taxClientId.sendKeys(ClientID);		
+		    taxSoftwareVersion.sendKeys(ver);
 		    SAVE.click();
+		    if (i<jcred.size()-1)
+		    {		    	
+		    	VerifyClient();
+		    	Thread.sleep(6000);
+		    	enter_Text(EmailID);
+			    select_ChkBox();
+		     	create_DRL();
+				verify_DRLStatus();
+				Thread.sleep(10000);	
+		        builder.moveToElement( Add_ClientBtn ).click( Add_ClientBtn );
+		        builder.perform();		    
+		 		//Add_ClientBtn.click();		 		
+		    	OfflineRadioButtonClick();		    					
+		    
+		    }
+		    System.out.println("Client no"+i+" Added");
 		}
-	}
-	 private void getTaxName(String OptionName)
-	 {
 		
+	}
+	 public void getTaxName(String OptionName)
+	 {		
 	    List<WebElement> options = Taxname.findElements(By.tagName("li"));
 	    for (WebElement option:options)
 	    {	  
-	    	System.out.println(option.getText());
+	    	//System.out.println(option.getText());
 	    	if(option.getText().contains(OptionName))
 	    	{	    	
 	    		option.click();
@@ -212,13 +242,28 @@ public class TaxCaddyPage extends BaseClass {
 		
 	}
 
-	public void enter_Text() throws IOException, ParseException
+	public void enter_Text( String email) throws Exception
 	{		
-		List<JSONObject> jcred = ul.GetJsonData(System.getProperty("user.dir")+"/src/main/java/TestData/clientDetails.json", "ClientDetails");
-		JSONObject jo = jcred.get(0);
-		EmailID = (String) jo.get("Email");
-		Refresh_PopupBtn.click();
-		SearchTextBox.sendKeys(EmailID);
+		//List<JSONObject> jcred = ul.GetJsonData(System.getProperty("user.dir")+"/src/main/java/TestData/clientDetails.json", "ClientDetails");
+		//JSONObject jo ;
+		//for (int i=0;i<=jcred.size()-1 ;i++)//JSONObject//
+		//{
+	    //jo = jcred.get(0);
+		//EmailID = (String) jo.get("Email");
+		Actions builder = new Actions(driver);
+        builder.moveToElement( Refresh_PopupBtn ).click(Refresh_PopupBtn );
+        builder.perform();
+        Thread.sleep(6000);
+        //SearchTextBox.click();
+        SearchTextBox.clear();
+        SearchTextBox.sendKeys(Keys.CONTROL + "a");
+        SearchTextBox.sendKeys(Keys.DELETE);
+        SearchTextBox.sendKeys(Keys.BACK_SPACE,email);        
+        //Refresh_PopupBtn.click();
+		//SearchTextBox.sendKeys(EmailID);
+		Thread.sleep(10000);		
+	//	}
+		
 	}
 
 	public boolean select_ChkBox() throws InterruptedException
@@ -278,7 +323,7 @@ public class TaxCaddyPage extends BaseClass {
 				System.out.println("Status of DRL Request is: " + aa);
 				Thread.sleep(10000);
 				DatabaseConnection db_conn = new DatabaseConnection();
-				db_conn.databaseConnection();
+				db_conn.databaseConnection(Counter);
 				break;				
 			}			
 			else
@@ -289,7 +334,7 @@ public class TaxCaddyPage extends BaseClass {
 			}			
 		} 
 		}
-		
-		BaseClass.closebrowser();
+		Counter++;
+		//BaseClass.closebrowser();
 	}
 }

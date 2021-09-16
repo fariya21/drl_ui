@@ -11,20 +11,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import PageClass.TaxCaddyPage;
 import baseClass.BaseClass;
 
 public class DatabaseConnection extends	BaseClass
 {
-	public ResultSet databaseConnection() throws SQLException
+	public ResultSet databaseConnection(int indexofRecord) throws SQLException
 	{
 		java.sql.Connection conn = null;
 		ResultSet result = null;
 		Utility ul = new Utility();		
 		String firmname, TaxSoft, clientNumber, url = null, environment ;
         environment = prop.getProperty("EnvironmentName");
-
- 
-
         try
         {
             if (environment.equalsIgnoreCase("Stage"))
@@ -37,19 +35,20 @@ public class DatabaseConnection extends	BaseClass
             }
             else            
                 url = prop.getProperty("QAConnectionString");            	
-			String username = "stg-app-db";
-			String password = "9vgviUdre4ptS8P!";
+			//String username = "stg-app-db";
+			//String password = "9vgviUdre4ptS8P!";
 			List<JSONObject> jcred = ul.GetJsonData(
 					System.getProperty("user.dir") + "/src/main/java/TestData/clientDetails.json", "ClientDetails");
-			for (JSONObject jo : jcred) {
+			JSONObject jo=jcred.get(indexofRecord);
+			//for ( : jcred) {
 				firmname = (String) jo.get("FirmName");
 				int taxYear = Integer.parseInt((String) jo.get("TaxYear"));
 				clientNumber = (String) jo.get("TaxClientID");
-				TaxSoft = (String) jo.get("TaxSoftware");
-
+				int index = Integer.parseInt((String) jo.get("TaxSoftware"));				
+				TaxSoft=ul.EnumTax(index);
 				// Creating connection in DB
 				
-				conn = DriverManager.getConnection(url, username, password);
+				conn = DriverManager.getConnection(url);
 				
 				// Checking for connection
 				//System.out.println(conn.isClosed());
@@ -71,7 +70,7 @@ public class DatabaseConnection extends	BaseClass
 					System.out.println(result.getInt("DRLRequestID"));
 				}
 				return result;
-			}
+			//}
 		}
 		
 		catch(Exception ex)

@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions
 		(
 
-		features = "C:/Users/fariya.wani/eclipse-workspace/DRL/src/test/java/feature/drl.feature",
+		features = "src/test/java/feature/drl.feature",
 		//features="feature",
 		glue = { "stepdefinition" },
 		plugin = {
@@ -25,5 +25,7 @@ import io.cucumber.junit.CucumberOptions;
 
 public class Runner
 {
+
+	
 
 }

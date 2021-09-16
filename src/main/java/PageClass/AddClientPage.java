@@ -56,7 +56,7 @@ public class AddClientPage  extends BaseClass{
 	WebElement SAVE;	
 	@FindBy(css="span._2WJ7O > div")			
 	WebElement ClientPopup;
-	
+	Utility uL = new Utility();
 	
 	 public AddClientPage()	 
 	 {
@@ -79,12 +79,14 @@ public class AddClientPage  extends BaseClass{
 	 }
 	 public void AddDetailClient()throws IOException, ParseException,InterruptedException
 	 {
-		    JSONParser jp = new JSONParser();
-			FileReader fr = new FileReader("C:/Users/fariya.wani/eclipse-workspace/DRL/src/main/java/TestData/ClientDetails.json");
-			JSONObject jobject = (JSONObject) jp.parse(fr);
-			JSONArray jarray = (JSONArray) jobject.get("ClientDetails");
-			
-			JSONObject ClientDet = (JSONObject) jarray.get(0);
+		   // JSONParser jp = new JSONParser();
+			//FileReader fr = new FileReader("C:/Users/fariya.wani/eclipse-workspace/DRL/src/main/java/TestData/ClientDetails.json");
+		    //JSONObject jobject = (JSONObject) jp.parse(fr);
+			//JSONArray jarray = (JSONArray) jobject.get("ClientDetails");
+			List<JSONObject> Client = uL.GetJsonData(System.getProperty("user.dir") + "/src/main/java/TestData/ClientDetails.json", "ClientDetails");
+			for (JSONObject ClientDet :Client)
+			{
+			//JSONObject ClientDet = (JSONObject) jarray.get(0);
 			String First = (String) ClientDet.get("FirstName");
 		    String Last =(String)ClientDet.get("LastName");
 		    String EmailAdd =(String)ClientDet.get("Email");
@@ -117,7 +119,7 @@ public class AddClientPage  extends BaseClass{
 			taxClientId.sendKeys(TaxClID);
 			taxSoftwareVersion.sendKeys(ver);
 			SAVE.click();
-			
+			}
 	 }
 	
 public void VerifyClient()

@@ -23,9 +23,10 @@ And Verify allow user to move on Administrative page
 When Clicking on Add Client button
 Then Allow user to open Add client Pop-up Window
 
+
+
 @Smoketest4
 Scenario: Add Client 
-
 Given  Verify Add Client PopUP 
 When   Click Offline Button
 And    Enter Client Detail
