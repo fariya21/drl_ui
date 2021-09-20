@@ -59,11 +59,12 @@ public class BaseClass
 	if(browsername.equals("chrome"))
 			{
 		System.setProperty("webdriver.chrome.driver","C:/chromedriver/chromedriver.exe");
-		ChromeOptions options = new ChromeOptions();
-		options.setPageLoadStrategy(PageLoadStrategy.NONE);
+		//ChromeOptions options = new ChromeOptions();
+		//options.setPageLoadStrategy(PageLoadStrategy.NONE);
 		// Instantiate the chrome driver
-		driver = new ChromeDriver(options);
-		//driver =new ChromeDriver();
+		//driver = new ChromeDriver(options);
+		driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
+		driver =new ChromeDriver();
 		
 			}
 	else if(browsername.equals("firefox"))
