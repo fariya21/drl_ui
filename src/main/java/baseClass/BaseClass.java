@@ -9,8 +9,10 @@ import java.time.Duration;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.winium.DesktopOptions;
 import org.openqa.selenium.winium.WiniumDriver;
@@ -57,7 +59,11 @@ public class BaseClass
 	if(browsername.equals("chrome"))
 			{
 		System.setProperty("webdriver.chrome.driver","C:/chromedriver/chromedriver.exe");
-		driver =new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.setPageLoadStrategy(PageLoadStrategy.NONE);
+		// Instantiate the chrome driver
+		driver = new ChromeDriver(options);
+		//driver =new ChromeDriver();
 		
 			}
 	else if(browsername.equals("firefox"))
