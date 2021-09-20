@@ -63,7 +63,7 @@ public class BaseClass
 		//options.setPageLoadStrategy(PageLoadStrategy.NONE);
 		// Instantiate the chrome driver
 		//driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
+		//driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 		driver =new ChromeDriver();
 		
 			}
