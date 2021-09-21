@@ -60,7 +60,7 @@ public class BaseClass
 			{
 		System.setProperty("webdriver.chrome.driver","C:/chromedriver/chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors","--disable-extensions","--no-sandbox","--disable-dev-shm-usage");
+		options.addArguments("--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors","--disable-extensions","--no-sandbox","--disable-dev-shm-usage");
 		options.setPageLoadStrategy(PageLoadStrategy.NONE);
 		// Instantiate the chrome driver
 		driver = new ChromeDriver(options);
