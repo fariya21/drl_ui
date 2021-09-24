@@ -295,7 +295,10 @@ public class TaxCaddyPage extends BaseClass {
 		select_ChkBox();
 		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);
 		wait.equals(ExpectedConditions.elementToBeClickable(DRL_PopBtn));
+		if(DRL_PopBtn.isEnabled())
+		{
 		DRL_PopBtn.click();
+		}
 		Thread.sleep(5000);
 	}
 	
