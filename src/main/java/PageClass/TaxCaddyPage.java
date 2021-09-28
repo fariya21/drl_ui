@@ -105,10 +105,13 @@ public class TaxCaddyPage extends BaseClass {
 	@FindBy(xpath = "//button[contains(@class,'2xgZv MuiButton-containedPrimary')]")
 	WebElement DRL_PopBtn;
 	
+	@FindBy(xpath="//*[@type=\"tel\"]")
+	WebElement PhNumber;
+	
 	JavascriptExecutor executor = (JavascriptExecutor) driver;
 	Utility ul = new Utility();
 
-	public static String  EmailID, First, Last, Loc, Own, TaxSoft, TaxAccountNumber, ClientID, ver;
+	public static String  EmailID,Phone, First, Last, Loc, Own, TaxSoft, TaxAccountNumber, ClientID, ver;
 	public static int index,Counter=0;
 	List<JSONObject> jcred;
 	Boolean flagAdd= true;
@@ -170,6 +173,7 @@ public class TaxCaddyPage extends BaseClass {
 			First = (String) jo.get("FirstName");
 			Last = (String) jo.get("LastName");
 			EmailID = (String) jo.get("Email");
+		    Phone=(String)jo.get("Phone");
 			Loc = (String) jo.get("Location");
 			Own = (String) jo.get("Owner");
 		    index = Integer.parseInt( jo.get("TaxSoftware").toString());			
@@ -179,6 +183,7 @@ public class TaxCaddyPage extends BaseClass {
 			FirstName.sendKeys(First);
 			LastName.sendKeys(Last);
 			Email.sendKeys(EmailID);
+			PhNumber.sendKeys(Phone);
 			ul.click_on_auto_suggesstion_text_box(Location);
 			ul.enter_just_Str("New Y", Location);
 			ul.select_required_from_auto_suggestion("//div[5]/div/ul", Loc);
