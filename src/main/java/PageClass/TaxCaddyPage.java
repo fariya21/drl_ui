@@ -183,7 +183,7 @@ public class TaxCaddyPage extends BaseClass {
 			FirstName.sendKeys(First);
 			LastName.sendKeys(Last);
 			Email.sendKeys(EmailID);
-			PhNumber.sendKeys(Phone);
+			//PhNumber.sendKeys(Phone);
 			ul.click_on_auto_suggesstion_text_box(Location);
 			ul.enter_just_Str("New Y", Location);
 			ul.select_required_from_auto_suggestion("//div[5]/div/ul", Loc);
@@ -205,7 +205,11 @@ public class TaxCaddyPage extends BaseClass {
 			taxClientId.click();
 			taxClientId.sendKeys(ClientID);		
 		    taxSoftwareVersion.sendKeys(ver);
-		    SAVE.click();
+		    Thread.sleep(4000);
+		    builder.moveToElement( SAVE ).click( SAVE );
+	        builder.perform();	
+		  //  SAVE.click();
+	        Thread.sleep(10000);
 		    if (i<jcred.size()-1)
 		    {		    	
 		    	VerifyClient();
