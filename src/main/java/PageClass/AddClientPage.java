@@ -39,6 +39,8 @@ public class AddClientPage  extends BaseClass{
 	@FindBy(xpath="//span[text()='OWNER']//ancestor::LABEL//following-sibling::DIV//INPUT")
 	WebElement Owner;
 	
+	
+	
 	//@FindBy(xpath="//div[@data-test='taxSoftware-input']")
 	//WebElement taxSoftware;
 	@FindBy(xpath="//*[@id='menu-']/div[3]/ul/li[1]")
@@ -90,6 +92,7 @@ public class AddClientPage  extends BaseClass{
 			String First = (String) ClientDet.get("FirstName");
 		    String Last =(String)ClientDet.get("LastName");
 		    String EmailAdd =(String)ClientDet.get("Email");
+		    
 		    String Loc=(String)ClientDet.get("Location");
 		    String Own=(String)ClientDet.get("Owner");
 		    String TaxSoft=(String)ClientDet.get("TaxSoftware");
@@ -100,6 +103,7 @@ public class AddClientPage  extends BaseClass{
 			FirstName.sendKeys(First);
 			LastName.sendKeys(Last);
 			Email.sendKeys(EmailAdd);
+			
 			//for location			
 			Utility dd= new Utility();
 			dd.click_on_auto_suggesstion_text_box(Location);
