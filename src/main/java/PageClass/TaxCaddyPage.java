@@ -297,12 +297,13 @@ public class TaxCaddyPage extends BaseClass {
 
 	public void create_DRL() throws InterruptedException 
 	{
+		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);
+		wait.equals(ExpectedConditions.elementToBeClickable(TC_InvitationBtn));
 		TC_InvitationBtn.click();
 		Thread.sleep(2000);
 		Custom_DRLBtn.click();
 		Thread.sleep(3000);
 		select_ChkBox();
-		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);
 		wait.equals(ExpectedConditions.elementToBeClickable(DRL_PopBtn));
 		if(DRL_PopBtn.isEnabled())
 		{
