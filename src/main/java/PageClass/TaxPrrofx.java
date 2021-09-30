@@ -34,7 +34,7 @@ public class TaxPrrofx extends BaseClass{
 	      List<WebElement> rows = dt.findElements(By.className("DataGridRow"));
 	       //List<WebElement> columnsList = null;
 	      WebElement columnList=dt.findElement(By.className("DataGridColumnHeadersPresenter"));
-	      int Status=0,RequestID=0;
+	      int Status=0,RequestID=0,counter=0;
 	      List<WebElement> header=columnList.findElements(By.className ("DataGridColumnHeader"));
 	      for (WebElement column : header) {
 	    	   if(column.getAttribute("Name").equals("Request ID"))
@@ -42,13 +42,22 @@ public class TaxPrrofx extends BaseClass{
 	    	   else if (column.getAttribute("Name").equals("Status")) {
 				Status=header.indexOf(column);			}
 	           
-	         }	      
-	     
-	       for ( int i=0;i<rows.size()-1;i++) {
-    	   	List<WebElement> cells= rows.get(i).findElements(By.className("DataGridCell"));	           
-	           System.out.println(cells.get(RequestID).getText());
-	           System.out.println(cells.get(Status).getText());
-	       }
+	         }	      	     
+	        //for ( int i=0;i<rows.size()-1;i++) {
+    	   	List<WebElement> cells= rows.get(0).findElements(By.className("DataGridCell"));	  
+    	   	String status= cells.get(Status).getText();
+    	   	if(status.contains("Started")&& counter>=10)
+    	   	{    	  
+    	   	   Thread.sleep(5000);
+	           counter ++;
+    	   	}
+    	   	else
+    	   	{
+    	    status= cells.get(Status).getText();
+    	   	System.out.println(status);
+	        System.out.println(cells.get(RequestID).getText());
+    	   	}
+	     //  }
 	        //use executeScript() method and pass the arguments 
 	        //Here i pass values based on css style. Yellow background color with solid red color border. 
 	       //js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", dt);	       
@@ -58,6 +67,7 @@ public class TaxPrrofx extends BaseClass{
            //return filePath;
            //desktopInitialization(filePath);
            WebElement close= windriver.findElement(By.id("CloseButton"));
+           close.getRect();
            close.click();
            return filePath;
 
