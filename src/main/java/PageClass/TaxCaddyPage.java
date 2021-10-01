@@ -225,7 +225,7 @@ public class TaxCaddyPage extends BaseClass {
 		    	OfflineRadioButtonClick();		    					
 		    
 		    }
-		    System.out.println("Client no"+i+" Added");
+		    System.out.println("Client no"+i+1+" Added");
 		}
 		
 	}
