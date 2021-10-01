@@ -67,7 +67,6 @@ public class TaxPrrofx extends BaseClass{
            //return filePath;
            //desktopInitialization(filePath);
            WebElement close= windriver.findElement(By.id("CloseButton"));
-           close.getRect();
            close.click();
            return filePath;
 
