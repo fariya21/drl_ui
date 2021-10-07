@@ -25,7 +25,7 @@ public class TaxPrrofx extends BaseClass{
 	      File url=waitForDownloadToComplete(path, fileName);   
 	      String filePath=url.getPath();
 	      desktopInitialization(filePath);
-	      Thread.sleep(45000);
+	      Thread.sleep(60000);
 	      WebElement uploader= windriver.findElement(By.name("TaxCaddy Tax File Uploader"));	 
 	      WebDriverWait wait = new WebDriverWait(driver,TestUtil.Explicit_WAIT);
 		  wait.until(ExpectedConditions.visibilityOf(uploader));
