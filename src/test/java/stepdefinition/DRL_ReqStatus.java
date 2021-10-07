@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import PageClass.TaxCaddyPage;
 import baseClass.BaseClass;
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,6 +19,16 @@ import io.cucumber.java.en.When;
 public class DRL_ReqStatus extends BaseClass
 {
 	TaxCaddyPage tc;
+	
+	@After
+	public void tearDown(Scenario scenario) {
+	if(scenario.isFailed())
+	{
+	final byte[] screenshot=((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+	
+		scenario.attach(screenshot, "image/png","please find below screenshot");
+	}
+	}
 	
 	@Given ("^Enter Client ID in searchbox$")
 	public void enter_clientId() throws Exception

@@ -9,8 +9,8 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions
 		(
 
-		features = "C:/Users/fariya.wani/eclipse-workspace/DRL/src/test/java/feature/drl.feature",
-		//features="feature",
+		//features = "C:/Users/fariya.wani/eclipse-workspace/DRL/src/test/java/feature/drl.feature",
+	   features="src/test/java/feature",
 		glue = { "stepdefinition" },
 		plugin = {
 				"pretty", "html:target/cucumber-reports/cucumberhtml.html",

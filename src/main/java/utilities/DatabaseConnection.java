@@ -10,9 +10,13 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import PageClass.TaxCaddyPage;
 import baseClass.BaseClass;
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 
 public class DatabaseConnection extends	BaseClass
 {
