@@ -138,10 +138,11 @@ public class TaxCaddyPage extends BaseClass {
 
 	public void clickon_AddClientBtn() throws Exception, IOException
 	{
-		
+		Thread.sleep(5000);
+		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);
+		wait.until(ExpectedConditions.elementToBeClickable(PopUp_CloseBtn));
 		if (PopUp_CloseBtn.isEnabled())
-			PopUp_CloseBtn.click();
-		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);		
+			PopUp_CloseBtn.click();	
 		wait.until(ExpectedConditions.elementToBeClickable(Add_ClientBtn));        
     	executor.executeScript("arguments[0].click();", Add_ClientBtn);
 		//Add_ClientBtn.click();
@@ -185,10 +186,10 @@ public class TaxCaddyPage extends BaseClass {
 			Email.sendKeys(EmailID);
 			//PhNumber.sendKeys(Phone);
 			ul.click_on_auto_suggesstion_text_box(Location);
-			ul.enter_just_Str("New Y", Location);
+			ul.enter_just_Str("New ", Location);
 			ul.select_required_from_auto_suggestion("//div[5]/div/ul", Loc);
 			ul.click_on_auto_suggesstion_text_box(Owner);
-			ul.enter_just_Str("vidya", Owner);
+			ul.enter_just_Str("Vidya ", Owner);
 			ul.select_required_from_auto_suggestion("//div[5]/div/ul", Own);
 			
 			//ul.click_on_auto_suggesstion_text_box(taxSoftware);
