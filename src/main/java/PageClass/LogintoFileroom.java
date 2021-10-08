@@ -9,11 +9,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import baseClass.BaseClass;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import utilities.DatabaseConnection;
 import utilities.Utility;
 
@@ -33,7 +38,10 @@ public class LogintoFileroom extends BaseClass
 	
 	Utility uL = new Utility();	
 	String domain, user, pass;
-
+	
+	
+	
+	
 	public LogintoFileroom()
 	{
 		
@@ -64,7 +72,7 @@ public class LogintoFileroom extends BaseClass
 	{
 		
 		Loginbtn.click();
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 	}
 	
 	public void verifyTitle_Page()
