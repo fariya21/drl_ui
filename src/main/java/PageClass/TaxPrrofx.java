@@ -20,7 +20,7 @@ import winium.elements.desktop.DataGrid;
 public class TaxPrrofx extends BaseClass{
 	public String File_Download(String fileName)throws Exception
 	{
-	      File path= new File("//sp-useprosrv.sp.com/Citrix-UD/fariya.wani/Downloads");
+	      File path= new File("//Downloads");
 	     
 	      File url=waitForDownloadToComplete(path, fileName);   
 	      String filePath=url.getPath();
