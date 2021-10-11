@@ -310,7 +310,7 @@ public class TaxCaddyPage extends BaseClass {
 		{
 		DRL_PopBtn.click();
 		}
-		Thread.sleep(5000);
+		Thread.sleep(7000);
 	}
 	
 	public void verify_DRLStatus() throws Exception
