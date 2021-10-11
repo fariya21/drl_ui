@@ -130,7 +130,7 @@ public class TaxCaddyPage extends BaseClass {
 	public void verify_TCAdmin_Title() throws InterruptedException
 	{
 		String ExpectedTitle = "Administrative - TaxCaddy CPA";
-		Thread.sleep(16000);
+		Thread.sleep(18000);
 		String ActualTitle = driver.getTitle();
 		System.out.print(ActualTitle);
 		Assert.assertEquals(ExpectedTitle, ActualTitle);
