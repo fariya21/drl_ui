@@ -130,7 +130,7 @@ public class TaxCaddyPage extends BaseClass {
 	public void verify_TCAdmin_Title() throws InterruptedException
 	{
 		String ExpectedTitle = "Administrative - TaxCaddy CPA";
-		Thread.sleep(12000);
+		Thread.sleep(16000);
 		String ActualTitle = driver.getTitle();
 		System.out.print(ActualTitle);
 		Assert.assertEquals(ExpectedTitle, ActualTitle);
@@ -138,7 +138,7 @@ public class TaxCaddyPage extends BaseClass {
 
 	public void clickon_AddClientBtn() throws Exception, IOException
 	{
-		Thread.sleep(7000);
+		Thread.sleep(5000);
 		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);
 		wait.until(ExpectedConditions.elementToBeClickable(PopUp_CloseBtn));
 		if (PopUp_CloseBtn.isEnabled())
