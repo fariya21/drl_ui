@@ -138,7 +138,7 @@ public class TaxCaddyPage extends BaseClass {
 
 	public void clickon_AddClientBtn() throws Exception, IOException
 	{
-		Thread.sleep(6000);
+		Thread.sleep(7000);
 		WebDriverWait wait = new WebDriverWait(driver, TestUtil.Explicit_WAIT);
 		wait.until(ExpectedConditions.elementToBeClickable(PopUp_CloseBtn));
 		if (PopUp_CloseBtn.isEnabled())
